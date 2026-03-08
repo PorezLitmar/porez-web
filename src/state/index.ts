@@ -1,0 +1,33 @@
+import {createContext} from 'react';
+
+import type {AppState} from './app/model';
+import type {ApplicationFileState} from './application-file/model';
+import type {ApplicationImageState} from './application-image/model';
+import type {AuthState} from './auth/model';
+import type {BoardState} from './board/model';
+import type {CodeListState} from './code-list/model';
+import type {DialogState} from './dialog/model';
+import type {EdgeState} from './edge/model';
+import type {ErrorState} from './error/model';
+import type {OrderState} from './order/model';
+import type {OrderEditState} from './order-edit/model';
+import type {OrderUserState} from './order-user/model';
+import type {UserState} from './user/model';
+import type {CodeListItemState} from './code-list-item/model';
+import type {CategoryState} from './category/model';
+
+export const AppContext = createContext<AppState | undefined>(undefined);
+export const ApplicationFileContext = createContext<ApplicationFileState | undefined>(undefined);
+export const ApplicationImageContext = createContext<ApplicationImageState | undefined>(undefined);
+export const AuthContext = createContext<AuthState | undefined>(undefined);
+export const BoardContext = createContext<BoardState | undefined>(undefined);
+export const CategoryContext = createContext<CategoryState | undefined>(undefined);
+export const CodeListContext = createContext<CodeListState | undefined>(undefined);
+export const CodeListItemContext = createContext<CodeListItemState | undefined>(undefined);
+export const DialogContext = createContext<DialogState | undefined>(undefined);
+export const EdgeContext = createContext<EdgeState | undefined>(undefined);
+export const ErrorContext = createContext<ErrorState | undefined>(undefined);
+export const OrderContext = createContext<OrderState | undefined>(undefined);
+export const OrderEditContext = createContext<OrderEditState | undefined>(undefined);
+export const OrderUserContext = createContext<OrderUserState | undefined>(undefined);
+export const UserContext = createContext<UserState | undefined>(undefined);

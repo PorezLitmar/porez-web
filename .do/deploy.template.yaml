@@ -1,0 +1,8 @@
+spec:
+  name: porez-web
+  services:
+    - dockerfile_path: Dockerfile
+      git:
+        branch: main
+        repo_clone_url: https://github.com/PorezLitmar/porez-web.git
+      name: porez-web
