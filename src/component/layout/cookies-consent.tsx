@@ -11,7 +11,7 @@ const CookiesConsent = () => {
                 <span>Používame cookies, aby sme optimalizovali funkčnosť stránky.</span>
                 <NavLink
                     className="link"
-                    to="/ui/cookies-info"
+                    to="/cookies-info"
                 >Dozvedieť sa viac.</NavLink>
                 <button
                     className="btn btn-sm"
