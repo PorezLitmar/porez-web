@@ -203,6 +203,7 @@ const OrderDoubledBoardForm = forwardRef<OrderDoubledBoardFormHandle, OrderDoubl
                 values={values}
                 setValues={(commonValues) => setValues({...values, ...commonValues})}
                 errors={errors}
+                board={board}
                 getEdge={props.getEdge}
             />
         </>

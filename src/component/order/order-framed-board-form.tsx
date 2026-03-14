@@ -206,6 +206,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                 values={values}
                 setValues={(commonValues) => setValues({...values, ...commonValues})}
                 errors={errors}
+                board={board}
                 getEdge={props.getEdge}
             />
 
