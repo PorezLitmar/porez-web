@@ -171,7 +171,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte ${getEnumValue(ProductDimension.LENGTH, appState?.productDimensions ?? [])}`}
                     value={values.length}
                     error={errors.length}
-                    onChange={event => setValues({...values, length: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, length: event.target.value}))}
                 />
 
                 <FormInput
@@ -180,7 +180,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte ${getEnumValue(ProductDimension.WIDTH, appState?.productDimensions ?? [])}`}
                     value={values.width}
                     error={errors.width}
-                    onChange={event => setValues({...values, width: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, width: event.target.value}))}
                 />
             </div>
 
@@ -195,7 +195,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                         const response = await props.getBoard(boardId);
                         setBoard(response.data);
                     }
-                    setValues({...values, boardId});
+                    setValues(previous => ({...previous, boardId}));
                 }}
                 error={errors.boardId}
                 getBoard={props.getBoard}
@@ -204,7 +204,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
             <OrderCommonForm
                 disabled={isBlank(values.length) || isBlank(values.width) || isBlank(values.boardId)}
                 values={values}
-                setValues={(commonValues) => setValues({...values, ...commonValues})}
+                setValues={(commonValues) => setValues(previous => ({...previous, ...commonValues}))}
                 errors={errors}
                 board={board}
                 getEdge={props.getEdge}
@@ -223,7 +223,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                         const response = await props.getBoard(frameBoardId);
                         setFrameBoard(response.data);
                     }
-                    setValues({...values, frameBoardId});
+                    setValues(previous => ({...previous, frameBoardId}));
                 }}
                 error={errors.frameBoardId}
                 getBoard={props.getBoard}
@@ -235,7 +235,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                 allEdgesEnabled={values.allEdgesEnabled}
                 edges={frameBoard?.edges ?? []}
                 edgeId={values.frameEdge}
-                setEdgeId={value => setValues({...values, frameEdge: value})}
+                setEdgeId={value => setValues(previous => ({...previous, frameEdge: value}))}
                 error={errors.frameEdge}
                 getEdge={props.getEdge}
             />
@@ -247,7 +247,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte rozmer vlysu ${getEnumValue(ProductPosition.A1, appState?.productPositions ?? [])}`}
                     value={values.frameWidthA1}
                     error={errors.frameWidthA1}
-                    onChange={event => setValues({...values, frameWidthA1: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, frameWidthA1: event.target.value}))}
                 />
 
                 <FormInput
@@ -256,7 +256,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte rozmer vlysu ${getEnumValue(ProductPosition.A2, appState?.productPositions ?? [])}`}
                     value={values.frameWidthA2}
                     error={errors.frameWidthA2}
-                    onChange={event => setValues({...values, frameWidthA2: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, frameWidthA2: event.target.value}))}
                 />
             </div>
 
@@ -267,7 +267,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte rozmer vlysu ${getEnumValue(ProductPosition.B1, appState?.productPositions ?? [])}`}
                     value={values.frameWidthB1}
                     error={errors.frameWidthB1}
-                    onChange={event => setValues({...values, frameWidthB1: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, frameWidthB1: event.target.value}))}
                 />
 
                 <FormInput
@@ -276,7 +276,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     placeholder={`Zadajte rozmer vlysu ${getEnumValue(ProductPosition.B2, appState?.productPositions ?? [])}`}
                     value={values.frameWidthB2}
                     error={errors.frameWidthB2}
-                    onChange={event => setValues({...values, frameWidthB2: event.target.value})}
+                    onChange={event => setValues(previous => ({...previous, frameWidthB2: event.target.value}))}
                 />
             </div>
         </>
