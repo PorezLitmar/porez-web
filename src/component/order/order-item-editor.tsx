@@ -148,7 +148,7 @@ const OrderItemEditor = (
         (async () => {
             setGenerateImageInProgress(true);
             try {
-                if (product) {
+                if (product && product.length > 0 && product.width > 0) {
                     const response = await orderApi.generateImage(product, authState?.accessToken);
                     setProductImage(response.data);
                 }
