@@ -64,7 +64,7 @@ const FormEdgeEditor = (
                     <div className="join join-horizontal flex-none">
                         <button
                             type="button"
-                            disabled={disabled || edges.length === 0}
+                            disabled={disabled || (edges.length === 0 && !allEdgesEnabled)}
                             title="Upraviť"
                             className="btn btn-primary btn-sm join-item"
                             onClick={() => setShowDialog(true)}
