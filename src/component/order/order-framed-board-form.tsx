@@ -202,7 +202,7 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
             />
 
             <OrderCommonForm
-                disabled={isBlank(values.length) || isBlank(values.width) || isBlank(values.boardId) || isBlank(values.frameBoardId)}
+                disabled={isBlank(values.length) || isBlank(values.width) || isBlank(values.boardId)}
                 values={values}
                 setValues={(commonValues) => setValues({...values, ...commonValues})}
                 errors={errors}
