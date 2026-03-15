@@ -4382,6 +4382,8 @@ components:
         - IMAGE_EDGE_COEFFICIENT
         - PRODUCT_MINIMAL_LENGTH
         - PRODUCT_MINIMAL_WIDTH
+        - PRODUCT_LAYER_MINIMAL_LENGTH
+        - PRODUCT_LAYER_MINIMAL_WIDTH
     DecimalPropertyEntry:
       required:
         - key
