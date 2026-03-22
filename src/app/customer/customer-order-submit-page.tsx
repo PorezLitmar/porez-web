@@ -1,6 +1,6 @@
 import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import OrderEditProvider from '../../state/order-edit';
-import {type ChangeEvent, type SubmitEvent, useContext, useEffect, useState} from 'react';
+import {type ChangeEvent, type SubmitEvent, useContext, useEffect, useRef, useState} from 'react';
 import {AppContext, ErrorContext, OrderEditContext} from '../../state';
 import {ErrorCode, type Order, OrderPackageType} from '../../api/model/porez';
 import {
@@ -83,6 +83,7 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
         packageType: OrderPackageType.NO_PACKAGE
     });
     const [isDirty, setIsDirty] = useState(false);
+    const lastContactRequested = useRef(false);
     const [errors, setErrors] = useState<FieldErrors<FormValues>>({});
     const [formError, setFormError] = useState<string>();
 
@@ -102,6 +103,10 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
     }, [id]);
 
     useEffect(() => {
+        if (lastContactRequested.current || !orderEditState) {
+            return;
+        }
+        lastContactRequested.current = true;
         (async () => {
             const response = await orderEditState?.getLastContact();
             if (response?.data) {
@@ -342,10 +347,13 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
                             label="Spôsob doručenia a balenia"
                             value={values.packageType}
                             error={errors.packageType}
-                            onChange={event => setValues({
-                                ...values,
-                                packageType: event.currentTarget.value as OrderPackageType
-                            })}
+                            onChange={event => {
+                                setIsDirty(true);
+                                setValues({
+                                    ...values,
+                                    packageType: event.currentTarget.value as OrderPackageType
+                                });
+                            }}
                         >
                             <option value={OrderPackageType.NO_PACKAGE}>
                                 {getEnumValue(OrderPackageType.NO_PACKAGE, appState?.orderPackageTypes ?? [])}
