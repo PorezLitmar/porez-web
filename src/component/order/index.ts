@@ -177,6 +177,8 @@ export const onFormOrderCommonChange = async (originalValues: FormOrderCommon, n
 export interface ValidationProps {
     minimalLength: number;
     minimalWidth: number;
+    minimalLayerLength: number;
+    minimalLayerWidth: number;
     edgeWidthMinAppend: number;
     edgeWidthMaxAppend: number;
     areaGluingAppend: number;
@@ -186,6 +188,8 @@ export const getValidationProps = async (): Promise<ValidationProps> => {
     const response = await apiConfig.getDecimalProperties();
     const minimalLength = response.data?.find(dp => dp.key === DecimalProperty.PRODUCT_MINIMAL_LENGTH)?.value ?? 250;
     const minimalWidth = response.data?.find(dp => dp.key === DecimalProperty.PRODUCT_MINIMAL_WIDTH)?.value ?? 80;
+    const minimalLayerLength = response.data?.find(dp => dp.key === DecimalProperty.PRODUCT_LAYER_MINIMAL_LENGTH)?.value ?? 250;
+    const minimalLayerWidth = response.data?.find(dp => dp.key === DecimalProperty.PRODUCT_LAYER_MINIMAL_WIDTH)?.value ?? 80;
     const edgeWidthMinAppend = response.data?.find(dp => dp.key === DecimalProperty.EDGE_WIDTH_MIN_APPEND)?.value ?? 4;
     const edgeWidthMaxAppend = response.data?.find(dp => dp.key === DecimalProperty.EDGE_WIDTH_MAX_APPEND)?.value ?? 8;
     const areaGluingAppend = response.data?.find(dp => dp.key === DecimalProperty.AREA_GLUING_APPEND)?.value ?? 8;
@@ -193,6 +197,8 @@ export const getValidationProps = async (): Promise<ValidationProps> => {
     return {
         minimalLength,
         minimalWidth,
+        minimalLayerLength,
+        minimalLayerWidth,
         edgeWidthMinAppend,
         edgeWidthMaxAppend,
         areaGluingAppend,

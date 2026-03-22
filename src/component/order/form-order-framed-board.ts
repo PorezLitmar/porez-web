@@ -413,7 +413,7 @@ export const validateFormOrderFramedBoardProduct = async (
         }
     };
 
-    const validateItemMinDimensions = (productItem: ProductItem) => {
+    const validateFrameItemMinDimensions = (productItem: ProductItem) => {
         const {lengthKey, widthKey} = getKeysForPosition(productItem.position);
         const canRotate = !productItem.strictDecorOrientation;
         const isStrictRotate = productItem.strictDecorOrientation
@@ -427,12 +427,12 @@ export const validateFormOrderFramedBoardProduct = async (
         const setEffectiveWidthError = (value: number) => (isStrictRotate ? setLengthError : setWidthError)(value);
 
         if (!canRotate) {
-            if (lengthValue < validationProps.minimalLength) {
-                setEffectiveLengthError(validationProps.minimalLength);
+            if (lengthValue < validationProps.minimalLayerLength) {
+                setEffectiveLengthError(validationProps.minimalLayerLength);
             }
 
-            if (widthValue < validationProps.minimalWidth) {
-                setEffectiveWidthError(validationProps.minimalWidth);
+            if (widthValue < validationProps.minimalLayerWidth) {
+                setEffectiveWidthError(validationProps.minimalLayerWidth);
             }
 
             return;
@@ -441,24 +441,24 @@ export const validateFormOrderFramedBoardProduct = async (
         const longSide = Math.max(lengthValue, widthValue);
         const shortSide = Math.min(lengthValue, widthValue);
 
-        if (longSide < validationProps.minimalLength) {
+        if (longSide < validationProps.minimalLayerLength) {
             if (lengthValue >= widthValue) {
-                setLengthError(validationProps.minimalLength);
+                setLengthError(validationProps.minimalLayerLength);
             } else {
-                setWidthError(validationProps.minimalLength);
+                setWidthError(validationProps.minimalLayerLength);
             }
         }
 
-        if (shortSide < validationProps.minimalWidth) {
+        if (shortSide < validationProps.minimalLayerWidth) {
             if (lengthValue <= widthValue) {
-                setLengthError(validationProps.minimalWidth);
+                setLengthError(validationProps.minimalLayerWidth);
             } else {
-                setWidthError(validationProps.minimalWidth);
+                setWidthError(validationProps.minimalLayerWidth);
             }
         }
     };
 
-    const validateItemMaxDimensions = (productItem: ProductItem, boardForItem: Board) => {
+    const validateFrameItemMaxDimensions = (productItem: ProductItem, boardForItem: Board) => {
         const {lengthKey, widthKey} = getKeysForPosition(productItem.position);
         const canRotate = !productItem.strictDecorOrientation;
         const isStrictRotate = productItem.strictDecorOrientation
@@ -525,9 +525,9 @@ export const validateFormOrderFramedBoardProduct = async (
     };
 
     for (const productItem of frameItems) {
-        validateItemMinDimensions(productItem);
+        validateFrameItemMinDimensions(productItem);
         if (frameBoard) {
-            validateItemMaxDimensions(productItem, frameBoard);
+            validateFrameItemMaxDimensions(productItem, frameBoard);
         }
 
         for (const productItemEdge of productItem.edges) {
