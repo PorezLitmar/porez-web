@@ -201,15 +201,6 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                 getBoard={props.getBoard}
             />
 
-            <OrderCommonForm
-                disabled={isBlank(values.length) || isBlank(values.width) || isBlank(values.boardId)}
-                values={values}
-                setValues={(commonValues) => setValues(previous => ({...previous, ...commonValues}))}
-                errors={errors}
-                board={board}
-                getEdge={props.getEdge}
-            />
-
             <span className="text-xs font-bold">Vlys</span>
 
             <FormBoardEditor
@@ -279,6 +270,15 @@ const OrderFramedBoardForm = forwardRef<OrderFramedBoardFormHandle, OrderFramedB
                     onChange={event => setValues(previous => ({...previous, frameWidthB2: event.target.value}))}
                 />
             </div>
+
+            <OrderCommonForm
+                disabled={isBlank(values.length) || isBlank(values.width) || isBlank(values.boardId)}
+                values={values}
+                setValues={(commonValues) => setValues(previous => ({...previous, ...commonValues}))}
+                errors={errors}
+                board={board}
+                getEdge={props.getEdge}
+            />
         </>
     )
 });
