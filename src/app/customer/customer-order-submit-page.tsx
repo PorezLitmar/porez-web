@@ -63,6 +63,7 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
     const orderEditState = useContext(OrderEditContext);
 
     const [order, setOrder] = useState<Order>();
+    const [lastContact, setLastContact] = useState<Order['contact']>();
 
     const [loading, setLoading] = useState(true);
 
@@ -81,6 +82,7 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
         deliveryDate: '',
         packageType: OrderPackageType.NO_PACKAGE
     });
+    const [isDirty, setIsDirty] = useState(false);
     const [errors, setErrors] = useState<FieldErrors<FormValues>>({});
     const [formError, setFormError] = useState<string>();
 
@@ -100,22 +102,35 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
     }, [id]);
 
     useEffect(() => {
+        (async () => {
+            const response = await orderEditState?.getLastContact();
+            if (response?.data) {
+                setLastContact(response.data);
+            }
+        })();
+    }, [orderEditState]);
+
+    useEffect(() => {
+        const contact = order?.contact ?? lastContact;
+        if (isDirty) {
+            return;
+        }
         (async () => setValues({
-            name: order?.contact?.name ?? '',
-            street: order?.contact?.street ?? '',
-            zipCode: order?.contact?.zipCode ?? '',
-            city: order?.contact?.city ?? '',
-            state: order?.contact?.state ?? '',
-            phone: order?.contact?.phone ?? '',
-            email: order?.contact?.email ?? '',
-            businessId: order?.contact?.businessId ?? '',
-            taxId: order?.contact?.taxId ?? '',
+            name: contact?.name ?? '',
+            street: contact?.street ?? '',
+            zipCode: contact?.zipCode ?? '',
+            city: contact?.city ?? '',
+            state: contact?.state ?? '',
+            phone: contact?.phone ?? '',
+            email: contact?.email ?? '',
+            businessId: contact?.businessId ?? '',
+            taxId: contact?.taxId ?? '',
             gdprAgreement: false,
             businessConditionsAgreement: false,
             deliveryDate: order?.deliveryDate ?? '',
             packageType: order?.packageType ?? OrderPackageType.NO_PACKAGE,
         }))();
-    }, [order])
+    }, [isDirty, lastContact, order])
 
     const validate = (v: FormValues): FieldErrors<FormValues> => {
         const e: FieldErrors<FormValues> = {
@@ -147,6 +162,7 @@ const CustomerOrderSubmitPageContent = ({id}: { id: string }) => {
         const {name, type, value, checked} = e.target;
         const nextValue = type === 'checkbox' ? checked : value;
 
+        setIsDirty(true);
         setValues(prev => ({
             ...prev,
             [name as keyof FormValues]: nextValue as FormValues[keyof FormValues],
